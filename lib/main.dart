@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/registration/loging.dart';
+import 'package:project_1_frontend/registration/registration.dart';
 import 'package:project_1_frontend/widgets/text_box.dart';
 import 'package:project_1_frontend/widgets/text_widgets.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Demo App',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           appBarTheme: const AppBarTheme(
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           iconTheme: const IconThemeData(color: Colors.red, size: 25)),
-      home: const TestPage(),
+      home: loging(),
     );
   }
 }
@@ -57,7 +58,6 @@ class _TestPageState extends State<TestPage> {
     }
     return null;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
