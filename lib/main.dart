@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/pages/dash.dart';
 import 'package:project_1_frontend/widgets/text_box.dart';
 import 'package:project_1_frontend/widgets/text_widgets.dart';
 
-void main() {
-  runApp(const MyApp());
+void main()
+{
+  runApp(homes());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class homes extends StatelessWidget {
+  const homes({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Demo App',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.red,
               titleTextStyle: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 20,
               ),
-              iconTheme: IconThemeData(color: Colors.white)),
+              iconTheme: IconThemeData(color: Colors.black)),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue, // Button background color
               padding: const EdgeInsets.all(10.0),
-              textStyle: const TextStyle(color: Colors.white),
+              textStyle: const TextStyle(color: Colors.black),
               shape: RoundedRectangleBorder(
                 borderRadius:
                     BorderRadius.circular(8.0), // Button border radius
               ),
             ),
           ),
-          iconTheme: const IconThemeData(color: Colors.red, size: 25)),
-      home: const TestPage(),
+          iconTheme: const IconThemeData(color: Colors.black, size: 25)),
+      home:  dash(),
     );
   }
 }
@@ -91,7 +93,7 @@ class _TestPageState extends State<TestPage> {
               child: const SubHeadingText(
                   text: "Demo Button",
                   align: TextAlign.left,
-                  color: Colors.white)),
+                  color: Colors.black)),
           Icon(Icons.notifications)
         ],
       ),
