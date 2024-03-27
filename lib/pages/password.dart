@@ -56,13 +56,13 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
     }
 
     var data = jsonEncode({
-      "_id": "6601a12265a5ae70d4022d2e",
+      "_id": "6603b02fea5695ab5c189768",
       "password": currentPassword,
       "newPassword": newPassword,
     });
 
     try {
-      final Response res = await service.updatePassword("6601a12265a5ae70d4022d2e", _currentPasswordController.text, _newPasswordController.text);
+      final Response res = await service.updatePassword("6603b02fea5695ab5c189768", _currentPasswordController.text, _newPasswordController.text);
       print(res.data);
       // Show success message
       showDialog(

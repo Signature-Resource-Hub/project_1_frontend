@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project_1_frontend/pages/dash.dart';
+import 'package:project_1_frontend/registration/loging.dart';
 import 'package:project_1_frontend/widgets/text_box.dart';
 import 'package:project_1_frontend/widgets/text_widgets.dart';
 
 void main()
 {
-  runApp(homes());
+  runApp(MyApp());
 }
 
-class homes extends StatelessWidget {
-  const homes({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class homes extends StatelessWidget {
               ),
             ),
           ),
-          iconTheme: const IconThemeData(color: Colors.black, size: 25)),
-      home:  dash(),
+          iconTheme: const IconThemeData(color: Colors.red, size: 25)),
+      home: loging(),
     );
   }
 }
@@ -59,7 +60,6 @@ class _TestPageState extends State<TestPage> {
     }
     return null;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
