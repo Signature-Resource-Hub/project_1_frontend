@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project_1_frontend/pages/dash.dart';
 import 'package:project_1_frontend/registration/forgotpass.dart';
 import 'package:project_1_frontend/registration/logsuccess.dart';
 import 'package:project_1_frontend/registration/registration.dart';
@@ -60,7 +61,7 @@ class _logingState extends State<loging> {
     if (response.containsKey("token")) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => loginsuccess()),
+        MaterialPageRoute(builder: (context) => dash()),
       );
     } else {
       showError("You are not able to login here", "Oops");

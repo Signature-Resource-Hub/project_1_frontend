@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/pages/dash.dart';
 import 'package:project_1_frontend/registration/loging.dart';
-import 'package:project_1_frontend/registration/registration.dart';
 import 'package:project_1_frontend/widgets/text_box.dart';
 import 'package:project_1_frontend/widgets/text_widgets.dart';
 
-void main() {
+void main()
+{
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,15 +21,15 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.red,
               titleTextStyle: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 20,
               ),
-              iconTheme: IconThemeData(color: Colors.white)),
+              iconTheme: IconThemeData(color: Colors.black)),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue, // Button background color
               padding: const EdgeInsets.all(10.0),
-              textStyle: const TextStyle(color: Colors.white),
+              textStyle: const TextStyle(color: Colors.black),
               shape: RoundedRectangleBorder(
                 borderRadius:
                     BorderRadius.circular(8.0), // Button border radius
@@ -91,7 +93,7 @@ class _TestPageState extends State<TestPage> {
               child: const SubHeadingText(
                   text: "Demo Button",
                   align: TextAlign.left,
-                  color: Colors.white)),
+                  color: Colors.black)),
           Icon(Icons.notifications)
         ],
       ),
