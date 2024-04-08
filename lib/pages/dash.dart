@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/pages/bus.dart';
+import 'package:project_1_frontend/pages/hotels.dart';
 import 'package:project_1_frontend/pages/profile.dart';
 class dash extends StatelessWidget {
   const dash({super.key});
@@ -92,6 +94,46 @@ class dash extends StatelessWidget {
             ),
           ),
           SizedBox(height: 250,),
+          Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    ElevatedButton(
+      onPressed: () {
+       Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddHotelPage()),
+    );
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Color.fromARGB(255, 62, 238, 241).withOpacity(.4),
+      ),
+      child: Text(
+        'Hotels',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddBusPage()),
+    );
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Color.fromARGB(255, 62, 238, 241).withOpacity(.4),
+      ),
+      child: Text(
+        'Buses',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+  ],
+),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
