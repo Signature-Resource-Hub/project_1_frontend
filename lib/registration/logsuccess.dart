@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/registration/AddBusPage.dart';
 
 class loginsuccess extends StatefulWidget {
   const loginsuccess({super.key});
@@ -20,7 +21,10 @@ class _loginsuccessState extends State<loginsuccess> {
               SizedBox(height: 30,),
               GestureDetector(               
                 onTap: () {
-                  
+                  // Navigator.push(
+                  //   context,
+                  //   // MaterialPageRoute(builder: (context) =>Profile()),
+                  // );
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -95,6 +99,46 @@ class _loginsuccessState extends State<loginsuccess> {
             ),
           ),
           SizedBox(height: 250,),
+          Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    ElevatedButton(
+      onPressed: () {
+      //  Navigator.push(
+    //   context,
+    //   // MaterialPageRoute(builder: (context) => AddHotelPage()),
+    // );
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Color.fromARGB(255, 62, 238, 241).withOpacity(.4),
+      ),
+      child: Text(
+        'Hotels',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddBusPage()),
+    );
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Color.fromARGB(255, 62, 238, 241).withOpacity(.4),
+      ),
+      child: Text(
+        'Buses',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+  ],
+),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Row(
