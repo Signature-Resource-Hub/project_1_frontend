@@ -34,6 +34,8 @@ dependencies:
   dio: ^5.4.1
   flutter_secure_storage: ^9.0.0
   shared_preferences: ^2.2.2
+ 
+
   
   
   
@@ -48,6 +50,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
