@@ -12,7 +12,7 @@ class updateservice {
 
   Future<Response> getUser(String userid) async {
     try {
-      final response = await dio.post("${configObj.url}getUser", data: {"userId": '6603b02fea5695ab5c189768'});
+      final response = await dio.post("${configObj.url}getUser", data: {"userId": userid});
       return response;
     } catch (e) {
       throw Exception('Failed to get user: $e');

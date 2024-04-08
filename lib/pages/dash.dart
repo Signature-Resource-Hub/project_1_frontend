@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_1_frontend/pages/bus.dart';
-import 'package:project_1_frontend/pages/hotels.dart';
 import 'package:project_1_frontend/pages/profile.dart';
+import 'package:project_1_frontend/registration/AddBusPage.dart';
 class dash extends StatelessWidget {
   const dash({super.key});
   @override
@@ -23,7 +22,8 @@ class dash extends StatelessWidget {
                 },
                 child: CircleAvatar(
                   radius: 20,
-                  backgroundImage: NetworkImage('https://i.pinimg.com/736x/1e/2f/28/1e2f28c0537debcf003afc48375d2775.jpg'), // Replace 'https://example.com/profile_image.jpg' with your image URL
+                  child: Icon(Icons.person),
+                   // Replace 'https://example.com/profile_image.jpg' with your image URL
                 ),
               ),
               SizedBox(width: 10),
@@ -74,7 +74,7 @@ class dash extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
+     body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -99,10 +99,10 @@ class dash extends StatelessWidget {
   children: [
     ElevatedButton(
       onPressed: () {
-       Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddHotelPage()),
-    );
+      //  Navigator.push(
+    //   context,
+    //   // MaterialPageRoute(builder: (context) => AddHotelPage()),
+    // );
       },
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 62, 238, 241).withOpacity(.4),
