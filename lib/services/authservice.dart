@@ -39,7 +39,27 @@ class AuthService {
     }
   }
   
-  Future<Map<String, dynamic>> userlogin(String email, String password) async {
+  // Future<Map<String, dynamic>> userlogin(String email, String password) async {
+  //   try {
+  //     final response = await dio.post(
+  //     "${configObj.url}login",
+  //       data: {"email": email, "password": password},
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       // Login successful, return response data
+  //       return response.data;
+  //     } else {
+  //       // Handle other status codes (e.g., 401 for unauthorized)
+  //       throw Exception('Failed to login: ${response.statusCode}');
+  //     }
+  //   } on DioError catch (e) {
+  //     // Handle Dio errors (e.g., network issues)
+  //     throw e;
+  //   }
+  // }
+
+  userlogin(String email, String password) async {
     try {
       final response = await dio.post(
       "${configObj.url}login",
@@ -48,7 +68,8 @@ class AuthService {
 
       if (response.statusCode == 200) {
         // Login successful, return response data
-        return response.data;
+        await storage.write(key: "token", value: response.data["token"]);
+        return response;
       } else {
         // Handle other status codes (e.g., 401 for unauthorized)
         throw Exception('Failed to login: ${response.statusCode}');
@@ -58,6 +79,8 @@ class AuthService {
       throw e;
     }
   }
+
+  
     Future<List<Bus>> getBus() async {
       final storage = const FlutterSecureStorage();
       Config configObj = Config();

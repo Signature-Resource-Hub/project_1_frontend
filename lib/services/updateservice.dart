@@ -20,7 +20,7 @@ class updateservice {
   }
   editusername(String editUserName) async {
     final response = await dio.post(
-      "${configObj.url}register",
+      "${configObj.url}registers",
       data: editUserName,
     );
     return response;
@@ -59,7 +59,22 @@ class updateservice {
     print('Error updating password: $error');
     throw error;
   }
-}
+  }
+
+// getRoomsByLocation(String location ) async {
+//     try {
+//       final response = await dio.post(
+//         '${configObj.url}hotellocation',
+//         data: {
+//           'location': location,
+          
+//         },
+//       );
+//       return response;
+//     } catch (e) {
+//       throw Exception('Failed to fetch hotels: $e');
+//     }
+//   }
 
 }
 
@@ -98,6 +113,8 @@ Future<List<Hotel>> getHotel(String location, String acNonAc, double cost) async
   }
 }
 }
+
+
 
 
 
