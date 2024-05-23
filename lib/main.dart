@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/pages/busbylocation.dart';
 import 'package:project_1_frontend/pages/dash.dart';
 import 'package:project_1_frontend/registration/loging.dart';
 import 'package:project_1_frontend/widgets/text_box.dart';
@@ -38,6 +39,10 @@ class MyApp extends StatelessWidget {
           ),
           iconTheme: const IconThemeData(color: Colors.red, size: 25)),
       home: loging(),
+      routes: {
+        '/login':(context) => loging(),
+        '/userdashboard':(context)=>dash()
+      },
     );
   }
 }
