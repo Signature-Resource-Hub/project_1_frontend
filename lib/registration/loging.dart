@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_1_frontend/pages/dash.dart';
 import 'package:project_1_frontend/registration/forgotpass.dart';
@@ -22,6 +23,7 @@ class _logingState extends State<loging> {
    TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   AuthService service=AuthService();
+  final storage=FlutterSecureStorage();
 
   showError(String content, String title) {
     showDialog(
@@ -42,6 +44,34 @@ class _logingState extends State<loging> {
       },
     );
   }
+  checkauthentication() async {
+    print("in check authentication");
+    try{
+     Map<String,String> allValues=await storage.readAll();
+     if(allValues["token"]!.isEmpty){
+      print("No user login found");
+     }
+     else{
+       Map<String, String> allValues =await storage.readAll();
+    String normalizedSource=base64Url.normalize(allValues["token"]!.split(".")[1]);
+    String userid=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
+    String user_type=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["user_type"];
+    print(userid);
+    print(user_type);
+    if(user_type=="user"){
+     Navigator.pushNamedAndRemoveUntil(context, '/userdashboard', (route) => false);
+    }
+    else{
+      showError("You are not able to login here", "Oops");
+    }
+    // print(userid);
+    // await storage.write(key :"userid",value:userid);
+    // await storage.write(key :"usertype",value:user_type);
+     }
+    }catch(e){
+      print("exception in auth");
+    }
+  }
   Login() async {
   var email = _emailController.text;
   var password = _passwordController.text;
@@ -55,17 +85,37 @@ class _logingState extends State<loging> {
   print(data);
 
   try {
-    final Map<String, dynamic> response = await service.userlogin(email, password);
-    print(response);
+    final Response  response= await service.userlogin(email, password);
+    print(response.data); 
 
-    if (response.containsKey("token")) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => dash()),
-      );
-    } else {
+    Map<String, String> allValues =await storage.readAll();
+    String normalizedSource=base64Url.normalize(allValues["token"]!.split(".")[1]);
+    String userid=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
+    String user_type=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["user_type"];
+    print(userid);
+    print(user_type);
+    // print(userid);
+    await storage.write(key :"userid",value:userid);
+    await storage.write(key :"usertype",value:user_type);
+
+    // await storage.write(key :"usertype",value:response.data[]);
+
+    if(user_type=="user"){
+     Navigator.pushNamedAndRemoveUntil(context, '/userdashboard', (route) => false);
+    }
+    else{
       showError("You are not able to login here", "Oops");
     }
+
+
+    // if (response.data("token")) {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => dash()),
+    //   );
+    // } else {
+    //   showError("You are not able to login here", "Oops");
+    // }
   } on DioError catch (e) {
     if (e.response != null) {
       print(e.response!.data);
@@ -74,9 +124,17 @@ class _logingState extends State<loging> {
       showError("Error occurred, please try again later", "Oops");
     }
   } catch (e) {
+     print(e);
     showError("An error occurred, please try again later", "Oops");
   }
 }
+
+@override
+void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkauthentication();
+  }
 
 
   @override

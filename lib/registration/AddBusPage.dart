@@ -29,12 +29,12 @@ class _AddBusPageState extends State<AddBusPage> {
   List<String> _fromLocations = [
     'Ernakulam',
     'Chennai',
-    'Koyambedu',
-    'Vandalur',
-    'Vyttila',
-    'Edapally 2',
-    'Paravoor Kavala',
-    'Palarivattom',
+    // 'Koyambedu',
+    // 'Vandalur',
+    // 'Vyttila',
+    // 'Edapally 2',
+    // 'Paravoor Kavala',
+    // 'Palarivattom',
     'Kasargod',
     'Banglore',
     'Kannur',
@@ -48,9 +48,7 @@ class _AddBusPageState extends State<AddBusPage> {
     'Vyttila Junction',
     'Vyttila',
     'Banglore',
-    'Madiwala',
-    'KEMPEGOWDA BS MAJESTIC',
-    'Kasargod',
+    'Kasaragod',
     'Palakkad',
     'Wayanad',
   ];
@@ -66,7 +64,7 @@ class _AddBusPageState extends State<AddBusPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           // title: Text("Success"),
-          content: Text("Recommended bus based on criteria"),
+          content: Text("Loading details based on your criteria"),
           actions: [
             TextButton(
               onPressed: () {

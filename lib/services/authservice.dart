@@ -39,7 +39,7 @@ class AuthService {
     }
   }
   
-  Future<Map<String, dynamic>> userlogin(String email, String password) async {
+ userlogin(String email, String password) async {
     try {
       final response = await dio.post(
       "${configObj.url}login",
@@ -48,7 +48,8 @@ class AuthService {
 
       if (response.statusCode == 200) {
         // Login successful, return response data
-        return response.data;
+        await storage.write(key: "token", value: response.data["token"]);
+        return response;
       } else {
         // Handle other status codes (e.g., 401 for unauthorized)
         throw Exception('Failed to login: ${response.statusCode}');
@@ -78,42 +79,38 @@ class AuthService {
       return [];
     }
   }
+
+getBusByLocation(String from, String to) async {
+  try {
+    final response = await Dio().post(
+      "${configObj.url}busbylocation",
+      data: {
+        'from': from,
+        'to': to,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Assuming the response data is a list of Bus objects
+      List<Bus> buses = busFromJson(response.data);
+      return buses;
+    } else {
+      // Handle non-200 status code responses
+      throw Exception('Failed to fetch buses: ${response.statusCode}');
+    }
+  } catch (e) {
+    // Handle Dio errors or other exceptions
+    print('Error fetching buses: $e');
+    throw Exception('Failed to fetch buses: $e');
+  }
 }
-// class PostApiService {
-//   final Config config = Config();
-
-//   Future<List<Bus>> getBus(String n1,n2,n3,n4,n5) async {
-//     try {
-//       var client = http.Client();
-//       var apiUrl = Uri.parse(config.flaskUrl); // Use flaskUrl from Config
-//       var response = await client.post(apiUrl,
-
-//         headers: <String, String>{
-//           "Content-Type": "application/json; charset=UTF-8"
-//         },
-//         body: jsonEncode(<String, String>{
-//           "busFrom":n1,
-//           "busTo":n2,
-//           "acNonAc":n3,
-//           "cost":n4,
-//           "busType":n5
-//         }),
-//       );
-      
 
 
-//       if (response.statusCode == 200) {
-//         return busFromJson(response.body);
-//       } else {
-//         return []; // Empty list if status code is not 200
-//       }
-//     } catch (e) {
-//       print("Error fetching bus data: $e");
-//       return []; // Empty list if there's an error
-//     }
-//   }
+}
 
-// }
+  
+
+
 class PostApiService {
   final Config config = Config();
 
