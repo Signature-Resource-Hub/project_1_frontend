@@ -34,14 +34,14 @@ class registrationsuccess extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              Text(
-                "Email verification link sent to the registered email address.",
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                ),
-              ),
+              // Text(
+              //   "Email verification link sent to the registered email address.",
+              //   style: TextStyle(
+              //     fontSize: 11,
+              //     color: Colors.black,
+              //     fontFamily: 'Roboto',
+              //   ),
+              // ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(

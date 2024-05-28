@@ -61,6 +61,23 @@ class updateservice {
   }
   }
 
+
+// getRoomsByLocation(String location ) async {
+//     try {
+//       final response = await dio.post(
+//         '${configObj.url}hotellocation',
+//         data: {
+//           'location': location,
+          
+//         },
+//       );
+//       return response;
+//     } catch (e) {
+//       throw Exception('Failed to fetch hotels: $e');
+//     }
+//   }
+
+
 // getRoomsByLocation(String location ) async {
 //     try {
 //       final response = await dio.post(
@@ -112,6 +129,8 @@ Future<List<Hotel>> getHotel(String location, String acNonAc, double cost) async
   }
 }
 }
+
+
 
 
 

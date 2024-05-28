@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 final _formKey = GlobalKey<FormState>();
 class PaymentPage extends StatelessWidget {
+
+  final double totalAmount;
+
+  PaymentPage({required this.totalAmount});
+
   final int? totalAmount; // Define totalAmount as an optional parameter
 
   PaymentPage({this.totalAmount});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +25,11 @@ class PaymentPage extends StatelessWidget {
             colors: [Colors.pinkAccent.withOpacity(.5), Colors.lightBlueAccent], // Gradient background
           ),
         ),
+
+        child: Center( 
+
         child: Center(
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -51,13 +61,18 @@ class PaymentPage extends StatelessWidget {
                           minimumSize: Size(double.infinity, 50),
                         ),
                         child: Text(
+
+                          'PAY NOW ₹${totalAmount.toStringAsFixed(2)}', // Display total amount here
+
                           'PAY NOW ₹${totalAmount}',
+
                           style: TextStyle(
                             color: Colors.pinkAccent,
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
                         ),
+
                       ),
                       SizedBox(height: 20),
                       Text(
@@ -396,8 +411,10 @@ class PaymentSuccess extends StatelessWidget {
 }
 
 
+
 void main() {
   runApp(MaterialApp(
     home: PaymentPage(),
   ));
 }
+
