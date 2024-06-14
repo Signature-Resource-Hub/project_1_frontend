@@ -2,7 +2,12 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:project_1_frontend/model/postprd.dart';
+
+import 'package:project_1_frontend/models/reviews.dart';
+//import 'package:project_1_frontend/model/review.dart';
+
 import 'package:project_1_frontend/model/review.dart';
+
 import 'package:project_1_frontend/services/authservice.dart';
 import 'package:project_1_frontend/services/config.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -15,19 +20,33 @@ class Reviewservice {
 
   Future<Response> addReview({
     required String userid,
+
+    required String hotelId,
+
     required String busId,
+
     required String rating,
     required String review
   }) async {
    
      try {
       final response = await dio.post(
+
+        "${configObj.url}addReviews",
+        data: {
+          'user_id': userid,
+          'hotel_id': hotelId,
+          'rating': rating,
+          'review': review,
+          
+
         "${configObj.url}addReview",
         data: {
           'userid': userid,
           'busId': busId,
           'rating': rating,
           'review': review,
+
         },
       );
       return response;
@@ -36,16 +55,28 @@ class Reviewservice {
       throw Exception('Failed to add review: $e');
     }
   }
+
+Future<List<Reviews>> getReviewsByHotel(String hotelId) async {
+    try {
+      final response = await dio.post(
+        "${configObj.url}getReviewsByHotel",
+        data: {'hotel_id': hotelId},
+
 Future<List<Review>> getReviewsByBus(String busId) async {
     try {
       final response = await dio.post(
         "${configObj.url}getReviewsByBus",
         data: {'busId': busId},
+
       );
 
       if (response.statusCode == 200) {
         List<dynamic> data = response.data['reviews'];
+
+        return data.map((json) => Reviews.fromJson(json)).toList();
+
         return data.map((json) => Review.fromJson(json)).toList();
+
       } else if (response.statusCode == 201) {
         print(response.data['message']);
         return [];
@@ -58,5 +89,9 @@ Future<List<Review>> getReviewsByBus(String busId) async {
       return [];
     }
   }
+
 }
+
+}
+
 

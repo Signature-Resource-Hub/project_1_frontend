@@ -1,7 +1,7 @@
 // import 'dart:convert';
 // import 'package:dio/dio.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 // import 'package:project_1_frontend/pages/password.dart';
 // import 'package:project_1_frontend/pages/updation.dart';
 // import 'package:project_1_frontend/services/updateservice.dart';
@@ -13,7 +13,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: AppBar(
-//         backgroundColor: Color.fromARGB(255, 73, 128, 129).withOpacity(.4),
+
 //         title: Center(
 //           child: Text(
 //             'Edit Profile',
@@ -50,6 +50,15 @@
 //     super.initState();
 //     fetchUserData();
 //   }
+
+
+//   void fetchUserData() async {
+//     try {
+//       final response = await service.getUser("660a4a6000bc8a9dbe32cbf3");
+//       if (response.statusCode == 200) {
+//         print(response.data);
+//         final userData = response.data;
+=======
 //   final storage=const FlutterSecureStorage();
 
 //   void fetchUserData() async {
@@ -70,6 +79,7 @@
 //         final userData = response.data;
 //         print("userdata");
 //         print(userData);
+
 
 //         setState(() {
 //           _username = userData['username'] ?? '';
@@ -107,6 +117,11 @@
 //   }
   
 //   submitForm() async{
+
+//     var data=jsonEncode({
+//       "_id":"660a4a6000bc8a9dbe32cbf3",
+//       "name":name.text,
+
 //     Map<String,String> allvalues=await storage.readAll();
 //       String normalizedSource=base64Url.normalize(allvalues["token"]!.split(".")[1]);
 //       print(normalizedSource);
@@ -116,11 +131,17 @@
 //       "name":name.text,
 //       // "email":email.text,
 //       // "phone":phone.text,
+
 //     });
 //     print(data);
    
 //   }
 //   submitFormusername() async{
+
+//     var data=jsonEncode({
+//       "_id":"660a4a6000bc8a9dbe32cbf3",
+//       "username":name.text
+
 //     Map<String,String> allvalues=await storage.readAll();
 //       String normalizedSource=base64Url.normalize(allvalues["token"]!.split(".")[1]);
 //       print(normalizedSource);
@@ -131,18 +152,21 @@
 //       "username":name.text
 //        //"email":email.text,
 //       // "phone":phone.text,
+
 //     });
 //     print(data);
 //     try {
 //       final Response res = await service.editusername(data);
 //       print(res.data);
 //       showError("Profile completed", "Profile completed Successfully");
+
 //       // Navigator.push(
 //       //   context,
 //       //   MaterialPageRoute(
 //       //     builder: (context) => CreateProfile(widget.contactNumber),
 //       //   ),
 //       // );
+
 //     } on DioException catch (e) {
 //       print(e);
 //       if (e.response?.statusCode == 400) {
@@ -164,6 +188,10 @@
 //   }
 
 //   submitFormphn() async{
+
+//     var data=jsonEncode({
+//       "id":"660a4a6000bc8a9dbe32cbf3",
+
 //     Map<String,String> allvalues=await storage.readAll();
 //       String normalizedSource=base64Url.normalize(allvalues["token"]!.split(".")[1]);
 //       print(normalizedSource);
@@ -173,6 +201,7 @@
 //       //"id":"660a4a6000bc8a9dbe32cbf3",
 //       //"username":name.text
 //        //"email":email.text,
+
 //        "phone":phone.text,
 //     });
 //     print(data);
@@ -202,6 +231,10 @@
 //   }
   
 //   submitFormemail() async{
+
+//     var data=jsonEncode({
+//       "id":"660a4a6000bc8a9dbe32cbf3",
+
 //     Map<String,String> allvalues=await storage.readAll();
 //       String normalizedSource=base64Url.normalize(allvalues["token"]!.split(".")[1]);
 //       print(normalizedSource);
@@ -211,6 +244,7 @@
       
 //       //"id":"660a4a6000bc8a9dbe32cbf3",
 //       "_id":userid,
+
 //       //"username":name.text
 //        "email":email.text,
 //        //"phone":phone.text,
@@ -303,6 +337,10 @@
 //                 onPressed: () {
 //                   if (_formKey.currentState!.validate()) {
 //                     submitFormusername();
+
+//                     _formKey.currentState!.save();                   
+//                     print('Username: $_username');
+
 //                     _formKey.currentState!.save();
 //                     // Perform your update logic here
 //                     print('Username: $_username');
@@ -310,6 +348,7 @@
                    
 
 //                     // Navigate to the next page
+
 //                     Navigator.push(
 //                       context,
 //                       MaterialPageRoute(builder: (context) => updatesucc()),
@@ -361,12 +400,14 @@
 //                   if (_formKey.currentState!.validate()) {
 //                     submitFormphn();
 //                     _formKey.currentState!.save();
+
 //                     // Perform your update logic here
                     
 //                     print('Phone Number: $_phoneNumber');
                     
 
 //                     // Navigate to the next page
+
 //                     Navigator.push(
 //                       context,
 //                       MaterialPageRoute(builder: (context) => updatesucc()),
@@ -418,11 +459,7 @@
 //                   if (_formKey.currentState!.validate()) {
 //                     submitFormemail();
 //                     _formKey.currentState!.save();
-//                     // Perform your update logic here
-                    
-//                     print('Email: $_email');
 
-//                     // Navigate to the next page
 //                     Navigator.push(
 //                       context,
 //                       MaterialPageRoute(builder: (context) => updatesucc()),
@@ -450,7 +487,7 @@
 //               SizedBox(height: 20),
 //               GestureDetector(
 //                       onTap: () {
-//                         // Navigate to forgot password screen
+
 //                         Navigator.push(
 //                           context,
 //                           MaterialPageRoute(builder: (context) => UpdatePasswordPage()),
@@ -466,6 +503,7 @@
 //                       ),
 //                     ),
 //                     SizedBox(height: 30,),
+
               
 //             ],
 //           ),
@@ -474,6 +512,7 @@
 //     );
 //   }
 // }
+
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -489,7 +528,11 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
+        backgroundColor: Color.fromARGB(255, 73, 128, 129).withOpacity(.4),
+
           backgroundColor: Color.fromARGB(255, 62, 238, 241),
+
         title: Center(
           child: Text(
             'Edit Profile',
@@ -529,11 +572,27 @@ class _ProfileFormState extends State<ProfileForm> {
     super.initState();
     fetchUserData();
   }
+  final storage=const FlutterSecureStorage();
 
   final storage = const FlutterSecureStorage();
 
   void fetchUserData() async {
     try {
+
+      //final response = await service.getUser("660a4a6000bc8a9dbe32cbf3");
+      Map<String,String> allvalues=await storage.readAll();
+      String normalizedSource=base64Url.normalize(allvalues["token"]!.split(".")[1]);
+      print(normalizedSource);
+      
+      String userid=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
+      print("user");
+      print(userid);
+      final response = await service.getUser(userid);
+
+      if (response.statusCode == 200) {
+        print(response.data);
+        
+
       Map<String, String> allvalues = await storage.readAll();
       String normalizedSource = base64Url.normalize(allvalues["token"]!.split(".")[1]);
       String userid = json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
@@ -541,7 +600,10 @@ class _ProfileFormState extends State<ProfileForm> {
       final response = await service.getUser(userid);
 
       if (response.statusCode == 200) {
+
         final userData = response.data;
+        print("userdata");
+        print(userData);
 
         setState(() {
           _username = userData['username'] ?? '';
@@ -635,6 +697,43 @@ class _ProfileFormState extends State<ProfileForm> {
     }
   }
 
+
+  submitFormphn() async{
+    Map<String,String> allvalues=await storage.readAll();
+      String normalizedSource=base64Url.normalize(allvalues["token"]!.split(".")[1]);
+      print(normalizedSource);
+      String userid=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
+    var data=jsonEncode({
+      "_id":userid,
+      //"id":"660a4a6000bc8a9dbe32cbf3",
+      //"username":name.text
+       //"email":email.text,
+       "phone":phone.text,
+    });
+    print(data);
+    try {
+      final Response res = await service.editphone(data);
+      print(res.data);
+      showError("Profile completed", "Profile completed Successfully");
+      
+    } on DioException catch (e) {
+      print(e);
+      if (e.response?.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Phone no already exists"),
+            duration: Duration(milliseconds: 2000),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Error occurred, please try again"),
+            duration: Duration(milliseconds: 2000),
+          ),
+        );
+      }
+
  submitFormphn() async {
   try {
     Map<String, String> allvalues = await storage.readAll();
@@ -670,6 +769,7 @@ class _ProfileFormState extends State<ProfileForm> {
           duration: Duration(milliseconds: 2000),
         ),
       );
+
     }
   } catch (e) {
     print('Error: $e');
@@ -684,6 +784,45 @@ class _ProfileFormState extends State<ProfileForm> {
 }
 
   
+
+  submitFormemail() async{
+    Map<String,String> allvalues=await storage.readAll();
+      String normalizedSource=base64Url.normalize(allvalues["token"]!.split(".")[1]);
+      print(normalizedSource);
+      String userid=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
+
+    var data=jsonEncode({
+      
+      //"id":"660a4a6000bc8a9dbe32cbf3",
+      "_id":userid,
+      //"username":name.text
+       "email":email.text,
+       //"phone":phone.text,
+    });
+    print(data);
+    try {
+      final Response res = await service.editemail(data);
+      print(res.data);
+      showError("Profile completed", "Profile completed Successfully");
+      
+    } on DioException catch (e) {
+      print(e);
+      if (e.response?.statusCode == 400) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Email already exists"),
+            duration: Duration(milliseconds: 2000),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Error occurred, please try again"),
+            duration: Duration(milliseconds: 2000),
+          ),
+        );
+      }
+
   submitFormemail() async {
   try {
     Map<String, String> allvalues = await storage.readAll();
@@ -720,6 +859,7 @@ class _ProfileFormState extends State<ProfileForm> {
           duration: Duration(milliseconds: 2000),
         ),
       );
+
     }
   } catch (e) {
     print('Error: $e');
@@ -750,6 +890,30 @@ Widget build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+
+              SizedBox(height: 20),
+              // CircleAvatar(
+              //   radius: 50,
+              //   backgroundImage: NetworkImage(
+              //       'https://i.pinimg.com/736x/1e/2f/28/1e2f28c0537debcf003afc48375d2775.jpg'),
+              // ),
+              // SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {},
+              //   style: ElevatedButton.styleFrom(
+              //     primary: Color(0xFFCAF1EC),
+              //   ),
+              //   child: Text(
+              //     '  Dorothy Dix  ',
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       fontSize: 25,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
+              SizedBox(height: 20),
+
               SizedBox(height: 32),
               Center(
                 child: Stack(
@@ -792,6 +956,7 @@ Widget build(BuildContext context) {
                 // ),
               ),
               SizedBox(height: 32),
+
               Form(
                 key: _formKey,
                 child: Column(

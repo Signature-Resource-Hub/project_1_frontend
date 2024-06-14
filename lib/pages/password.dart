@@ -57,7 +57,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
 
     var data = jsonEncode({
 
-      
       "_id": "660a4a6000bc8a9dbe32cbf3",
       "password": currentPassword,
       "newPassword": newPassword,

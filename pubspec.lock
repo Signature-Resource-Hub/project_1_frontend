@@ -193,6 +193,15 @@ packages:
     source: hosted
     version: "4.0.2"
   intl:
+
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.17.0"
+
     dependency: transitive
     description:
       name: intl
@@ -200,6 +209,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.19.0"
+
   js:
     dependency: transitive
     description:
@@ -433,10 +443,17 @@ packages:
     dependency: "direct main"
     description:
       name: table_calendar
+
+      sha256: "7f1270313c0cdb245b583ed8518982c01d4a7e95869b3c30abcbae3b642c45d0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.8"
+
       sha256: b759eb6caa88dda8e51c70ee43c19d1682f8244458f84cced9138ee35b2ce416
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+
   term_glyph:
     dependency: transitive
     description:
