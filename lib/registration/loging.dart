@@ -419,6 +419,14 @@ class _logingState extends State<loging> {
     if(user_type=="user"){
      Navigator.pushNamedAndRemoveUntil(context, '/userdashboard', (route) => false);
     }
+    else if(user_type=="guide")
+    {
+      Navigator.pushNamedAndRemoveUntil(context, '/guidedashboard', (route) => false);
+    }
+    else if(user_type=="blogger")
+    {
+      Navigator.pushNamedAndRemoveUntil(context, '/bloggerdashboard', (route) => false);
+    }
     else{
       showError("You are not able to login here", "Oops");
     }

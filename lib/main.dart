@@ -104,6 +104,9 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/pages/blogdetails.dart';
+import 'package:project_1_frontend/pages/bloggerdashboard.dart';
+import 'package:project_1_frontend/pages/guidedashboard.dart';
 import 'package:project_1_frontend/pages/hotelbyloc.dart';
 import 'package:project_1_frontend/pages/dash.dart';
 import 'package:project_1_frontend/registration/loging.dart';
@@ -146,7 +149,10 @@ class MyApp extends StatelessWidget {
       home: loging(),
       routes: {
         '/login':(context) => loging(),
-        '/userdashboard':(context)=>dash()
+        '/userdashboard':(context)=>dash(),
+        '/guidedashboard':(context)=>guidedashboard(),
+        '/bloggerdashboard':(context)=>bloggerdashboard()
+        
       },
     );
   }
