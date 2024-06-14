@@ -160,6 +160,7 @@ class _TravelListPageState extends State<TravelListPage> {
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
+
       title: Text(
         'Hotel List',
         style: TextStyle(
@@ -300,6 +301,71 @@ Widget build(BuildContext context) {
         }
       },
     ),
+
+                        backgroundColor: Color.fromARGB(255, 62, 238, 241).withOpacity(.4),
+
+      title: Text('Hotel List'),
+    ),
+body: ListView.builder(
+  itemCount: _data.length,
+  itemBuilder: (context, index) {
+    // Check if this hotel is unique based on name and location
+    bool isUnique = true;
+    for (int i = 0; i < index; i++) {
+      if (_data[i]["hotelname"] == _data[index]["hotelname"] &&
+          _data[i]["location"] == _data[index]["location"]) {
+        isUnique = false;
+        break;
+      }
+    }
+
+    // If it's unique, display it
+    if (isUnique) {
+      return Container(
+        padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.symmetric(vertical: 4.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              _data[index]["hotelname"],
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              "AC/Non-AC: ${_data[index]["acNonAc"]}",
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              "Cost: ${_data[index]["cost"]}",
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              "Location: ${_data[index]["location"]}",
+              style: TextStyle(fontSize: 16),
+            ),
+               Text(
+              "Availability: ${_data[index]["availability"]}",
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              "Number of Persons: ${_data[index]["numberOfPersons"]}",
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      );
+    } else {
+      // If not unique, return an empty container
+      return Container();
+    }
+  },
+),
+
   );
 }
 

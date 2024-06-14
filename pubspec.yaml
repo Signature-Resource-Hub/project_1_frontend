@@ -34,9 +34,15 @@ dependencies:
   dio: ^5.4.1
   flutter_secure_storage: ^9.0.0
   shared_preferences: ^2.2.2
+
   intl: ^0.17.0
   table_calendar: ^3.0.0
   flutter_rating_bar: ^4.0.0
+
+  table_calendar: ^3.1.1
+  flutter_rating_bar: ^4.0.1
+  
+
  
 
   
@@ -78,7 +84,7 @@ flutter:
     - assets/login.svg
     - assets/welcome.svg
     - assets/forgot.svg
-    
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -317,6 +317,7 @@ class _logingState extends State<loging> {
   AuthService service=AuthService();
   final storage=FlutterSecureStorage();
 
+
   late String _userName;
   late String _userEmail;
   late String _userPhone;
@@ -329,6 +330,7 @@ class _logingState extends State<loging> {
     _userPhone = allValues?['phone'] ?? ''; // Fetch contact number
     setState(() {}); // Update the UI with the fetched user details
   }
+
 
 
 
@@ -366,8 +368,12 @@ class _logingState extends State<loging> {
     print(userid);
     print(user_type);
     if(user_type=="user"){
+
      Navigator.pushNamedAndRemoveUntil(context, '/userdashboard', (route) => false,
 );
+
+     Navigator.pushNamedAndRemoveUntil(context, '/userdashboard', (route) => false);
+
     }
     else{
       showError("You are not able to login here", "Oops");
@@ -399,18 +405,22 @@ class _logingState extends State<loging> {
     Map<String, String> allValues =await storage.readAll();
     String normalizedSource=base64Url.normalize(allValues["token"]!.split(".")[1]);
     String userid=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
+
     //String username=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["username"];
     //String useremail=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["email"];
     //String phone=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["phone"];
+
     String user_type=json.decode(utf8.decode(base64Url.decode(normalizedSource)))["user_type"];
     print(userid);
     print(user_type);
     // print(userid);
     await storage.write(key :"userid",value:userid);
 
+
     //await storage.write(key :"username",value:username);
     //await storage.write(key :"useremail",value:useremail);
     //await storage.write(key :"phone",value:phone);
+
 
     await storage.write(key :"usertype",value:user_type);
 
@@ -432,7 +442,16 @@ class _logingState extends State<loging> {
     }
 
 
-    
+
+    // if (response.data("token")) {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => dash()),
+    //   );
+    // } else {
+    //   showError("You are not able to login here", "Oops");
+    // }
+
   } on DioError catch (e) {
     if (e.response != null) {
       print(e.response!.data);
@@ -445,6 +464,13 @@ class _logingState extends State<loging> {
     showError("An error occurred, please try again later", "Oops");
   }
 }
+
+@override
+void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkauthentication();
+  }
 
 
 
