@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/pages/bloggerdashboard.dart';
 import 'package:project_1_frontend/pages/busbylocation.dart';
 import 'package:project_1_frontend/pages/dash.dart';
+import 'package:project_1_frontend/pages/guidedashboard.dart';
 import 'package:project_1_frontend/registration/loging.dart';
 import 'package:project_1_frontend/widgets/text_box.dart';
 import 'package:project_1_frontend/widgets/text_widgets.dart';
@@ -41,7 +43,9 @@ class MyApp extends StatelessWidget {
       home: loging(),
       routes: {
         '/login':(context) => loging(),
-        '/userdashboard':(context)=>dash()
+        '/userdashboard':(context)=>dash(),
+        '/guidedashboard':(context)=>guidedashboard(),
+        '/bloggerdashboard':(context)=>bloggerdashboard()
       },
     );
   }
