@@ -86,8 +86,10 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/model/guidereview.dart';
 import 'package:project_1_frontend/models/guidemodel.dart';
 import 'package:project_1_frontend/pages/guide/guidedetails.dart';
+import 'package:project_1_frontend/pages/guide/userguidereviews.dart';
 import 'package:project_1_frontend/services/guideservice.dart';
 
 class GuidePage extends StatefulWidget {
@@ -138,13 +140,20 @@ backgroundColor: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4),          ti
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   Guide guide = snapshot.data![index];
+                  final guideid=guide.userid.id;
                   return GestureDetector(
                     onTap: () {
                       // Navigate to guide details page when tapped
-                      Navigator.push(
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => guidedetails(content: guide.contents),
+                      //   ),
+                      // );
+                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => guidedetails(content: guide.contents),
+                          builder: (context) => userguidereviews( guideId: guideid),
                         ),
                       );
                     },
@@ -157,7 +166,7 @@ backgroundColor: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4),          ti
                       child: ListTile(
                         contentPadding: EdgeInsets.all(16),
                         title: Text(
-                          "Guide ID: ${guide.id}",
+                          "Guide ID: ${guide.userid.id}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold, // Make guide ID bold
                             fontFamily: 'Montserrat', // Custom font
@@ -186,6 +195,7 @@ backgroundColor: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4),          ti
                             ),
                             SizedBox(height: 4),
                             Text("Timestamp: ${guide.timestamp}"),
+                            Text("Contents: ${guide.contents}"),
                           ],
                         ),
                       ),
