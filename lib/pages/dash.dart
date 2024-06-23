@@ -280,13 +280,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:project_1_frontend/pages/blogdetail.dart';
 import 'package:project_1_frontend/pages/busbylocation.dart';
 import 'package:project_1_frontend/pages/guide/guidelocation.dart';
 import 'package:project_1_frontend/pages/guide/guides.dart';
 import 'package:project_1_frontend/pages/hotelList.dart';
 import 'package:project_1_frontend/pages/hotelbyloc.dart';
+import 'package:project_1_frontend/pages/hotelloc.dart';
 import 'package:project_1_frontend/pages/hotels.dart';
 import 'package:project_1_frontend/pages/mytrips.dart';
+import 'package:project_1_frontend/pages/orderdetail.dart';
 import 'package:project_1_frontend/pages/profile.dart';
 import 'package:project_1_frontend/registration/AddBusPage.dart';
 
@@ -402,6 +405,47 @@ class dash extends StatelessWidget {
                       ));
                     },
                   ),
+
+
+                buildMenuItem(
+                    context: context,
+                    icon: Icons.hotel,
+                    text: 'EXPLORE HOTELS',
+                    color: Colors.teal,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => HotelbylocPage(),
+                      ));
+                    },
+                  ),
+
+                  buildMenuItem(
+                    context: context,
+                    icon: Icons.hotel,
+                    text: 'BLOGGER',
+                    color: Color.fromARGB(255, 224, 109, 167),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BlogPage(),
+                      ));
+                    },
+                  ),
+
+                  
+                buildMenuItem(
+                    context: context,
+                    icon: Icons.hotel,
+                    text: 'MY HOTELS',
+                    color: Color.fromARGB(255, 193, 232, 110),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BookingDetailScreen(),
+                      ));
+                    },
+                  ),
+
+
+
                   buildMenuItem(
                     context: context,
                     icon: Icons.settings,

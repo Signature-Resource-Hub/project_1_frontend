@@ -97,7 +97,7 @@ class LocationDetails extends StatelessWidget {
   LocationDetails({
     required this.buses,
     // required this.userId,
-    required this.busId,
+    required this.busId
   });
 
   @override
