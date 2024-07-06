@@ -103,49 +103,40 @@
 //         "_id": id,
 //     };
 // }
-class Booking {
+class Busbookings {
   final String id;
   final String userId;
   final String busFrom;
   final String busTo;
+  final DateTime createdAt;
   final String startTime;
   final String endTime;
-  final int selectedSeats;
-  final int totalCost;
-  final String busType;
-  final Map<String, dynamic>? selectedPickupPoint;
-  final Map<String, dynamic>? selectedDropPoint;
-  final List<Map<String, dynamic>> travelers;
+  final String status;
+  final Map<String, dynamic>? selectedPickupPoint; // Ensure this matches your usage
 
-  Booking({
+  Busbookings({
     required this.id,
     required this.userId,
     required this.busFrom,
     required this.busTo,
+    required this.createdAt,
     required this.startTime,
     required this.endTime,
-    required this.selectedSeats,
-    required this.totalCost,
-    required this.busType,
-    required this.selectedPickupPoint,
-    required this.selectedDropPoint,
-    required this.travelers,
+    required this.status,
+    this.selectedPickupPoint, // Optional: ensure it's nullable if not always present
   });
 
-  factory Booking.fromJson(Map<String, dynamic> json) {
-    return Booking(
-      id: json['_id'],
+  factory Busbookings.fromJson(Map<String, dynamic> json) {
+    return Busbookings(
+      id: json['id'],
       userId: json['userId'],
       busFrom: json['from'],
       busTo: json['to'],
+      createdAt: DateTime.parse(json['createdAt']),
       startTime: json['startTime'],
       endTime: json['endTime'],
-      selectedSeats: json['numberOfSeats'],
-      totalCost: json['totalCost'],
-      busType: json['busType'],
-      selectedPickupPoint: json['pickupPoint'],
-      selectedDropPoint: json['dropPoint'],
-      travelers: List<Map<String, dynamic>>.from(json['travelers']),
+      status: json['status'],
+      selectedPickupPoint: json['pickupPoint'], // Ensure this matches your JSON key
     );
   }
 }

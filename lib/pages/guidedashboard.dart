@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_1_frontend/pages/guide/guides.dart';
+import 'package:project_1_frontend/pages/guide/viewguidesindashboard.dart';
 import 'package:project_1_frontend/pages/guide/viewreviews.dart';
 // import 'package:project_1_frontend/pages/blog_view_page.dart';
 // import 'package:project_1_frontend/pages/blogdetails.dart';
@@ -163,7 +164,7 @@ class _guidedashboardState extends State<guidedashboard>
                       text: 'VIEW ALL GUIDES',
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => GuidePage(),
+                          builder: (context) => viewguides(),
                         ));
                       },
                       color: Color.fromARGB(255, 165, 200, 230), // Specify color for this container

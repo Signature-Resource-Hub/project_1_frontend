@@ -620,7 +620,7 @@ class ReviewBookingPage extends StatelessWidget {
               icon: Icon(Icons.check),
               label: Text('CONFIRM BOOKING'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.green,
+                primary: Color.fromARGB(255, 163, 204, 228),
                 padding: EdgeInsets.symmetric(vertical: 16),
                 textStyle: TextStyle(fontSize: 18),
               ),

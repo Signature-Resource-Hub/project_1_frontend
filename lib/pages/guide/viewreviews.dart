@@ -1,4 +1,5 @@
 // import 'dart:convert';
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,9 +17,9 @@
 // }
 
 // class _viewreviewsState extends State<viewreviews> {
-//   final guideReviewService = GuideReviewservice();
-//   final updateService = updateservice();
-//   final storage = const FlutterSecureStorage();
+//   final guideReviewservice = GuideReviewservice();
+//   final updateservice userservice = updateservice();
+//   List<Guidereview> reviews = [];
 
 //   @override
 //   void initState() {
@@ -26,23 +27,10 @@
 //     fetchReviews();
 //   }
 
-//   List<Guidereview> reviews = [];
-
 //   Future<void> fetchReviews() async {
-    
 //     String guideId = widget.guideId;
-//     print('Fetching reviews for guideId: $guideId');
 //     if (guideId.isNotEmpty) {
-//       reviews = await guideReviewService.getReviewsByguide(guideId);
-//       for (int i = 0; i < reviews.length; i++) {
-//         final review = reviews[i];
-//         final userDetails = await updateService.getUser(review.userid);
-//         if (userDetails != null) {
-//           final userdata = userDetails.data;
-//           final name = userdata['username'];
-//           review.userid = name; // Assuming `Guidereview` has a `username` field to store the reviewer's name
-//         }
-//       }
+//       reviews = await guideReviewservice.getReviewsByguide(guideId);
 //       setState(() {});
 //     }
 //   }
@@ -51,7 +39,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: AppBar(
-//         title: Text('review'),
+//         title: Text('Reviews'),
 //         backgroundColor: Colors.blue,
 //       ),
 //       body: SingleChildScrollView(
@@ -61,7 +49,7 @@
 //             crossAxisAlignment: CrossAxisAlignment.start,
 //             children: [
 //               Text(
-//                 'review:',
+//                 'Ratings  & Reviews:',
 //                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
 //               ),
 //               SizedBox(height: 10),
@@ -77,52 +65,22 @@
 //                     shape: RoundedRectangleBorder(
 //                       borderRadius: BorderRadius.circular(15),
 //                     ),
+                    
 //                     child: ListTile(
+//                       // title: Text(
+//                       //   'userid:${review.userid}    Rating:${review.rating}',
+                        
+//                       //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+//                       // ),
 //                       title: Text(
-//                         'Rating: ${review.rating}',
-//                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-//                       ),
-//                       subtitle: Padding(
-//                         padding: const EdgeInsets.only(top: 8.0),
-//                         child: Text(
-//                           review.review,
-//                           style: TextStyle(fontSize: 16),
-//                         ),
-//                       ),
-//                       trailing: Text(
-//                         review.userid ?? 'Anonymous',
-//                         style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
-//                       ),
-//                     ),
-//                   );
-//                 },
-//               ),
-
-//               SizedBox(height: 10),
-//               ListView.builder(
-//                 shrinkWrap: true,
-//                 physics: NeverScrollableScrollPhysics(),
-//                 itemCount: reviews.length,
-//                 itemBuilder: (context, index) {
-//                   final review = reviews[index];
-//                   return Card(
-//                     elevation: 5,
-//                     margin: EdgeInsets.symmetric(vertical: 8),
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(15),
-//                     ),
-//                     child: ListTile(
-//                       title: Text(
-//                         'Rating: ${review.rating}',
+//                         'Rating:${review.rating}',
                         
 //                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-
 //                       ),
 //                       subtitle: Padding(
 //                         padding: const EdgeInsets.only(top: 8.0),
 //                         child: Text(review.review, style: TextStyle(fontSize: 16)),
 //                       ),
-                      
 //                     ),
 //                   );
 //                 },
@@ -156,6 +114,7 @@ class _viewreviewsState extends State<viewreviews> {
   final guideReviewservice = GuideReviewservice();
   final updateservice userservice = updateservice();
   List<Guidereview> reviews = [];
+  double averageRating = 0.0;
 
   @override
   void initState() {
@@ -167,7 +126,15 @@ class _viewreviewsState extends State<viewreviews> {
     String guideId = widget.guideId;
     if (guideId.isNotEmpty) {
       reviews = await guideReviewservice.getReviewsByguide(guideId);
+      calculateAverageRating();
       setState(() {});
+    }
+  }
+
+  void calculateAverageRating() {
+    if (reviews.isNotEmpty) {
+      double totalRating = reviews.fold(0.0, (sum, review) => sum + double.parse(review.rating));
+      averageRating = totalRating / reviews.length;
     }
   }
 
@@ -185,8 +152,13 @@ class _viewreviewsState extends State<viewreviews> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Ratings  & Reviews:',
+                'Ratings & Reviews:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Overall Ratings: ${averageRating.toStringAsFixed(1)}',
+                style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 10),
               ListView.builder(
@@ -201,14 +173,11 @@ class _viewreviewsState extends State<viewreviews> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    
                     child: ListTile(
                       title: Text(
-                        'userid:${review.userid}    Rating:${review.rating}',
-                        
+                        'Rating: ${review.rating}',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       ),
-                      
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(review.review, style: TextStyle(fontSize: 16)),
