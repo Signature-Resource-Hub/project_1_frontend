@@ -9,7 +9,7 @@ class BookHotelService {
   
   
 
-  bookHotel(String userid,String hotel_id,String book_for,String price,String username,String useremail,String userphone) async {
+  bookHotel(String userid,String hotel_id,String book_for,String price,String username,String useremail,String userphone, String hotelName,String acNonAc) async {
     final response = await dio.post(
       "${configObj.url}bookhotel",
       data: {
@@ -20,6 +20,9 @@ class BookHotelService {
     "username":username,
     "useremail":useremail,
     "userphone":userphone,
+    "hotelname":hotelName,
+    "acNonAc":acNonAc,
+    
     
     
 

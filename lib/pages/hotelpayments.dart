@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/pages/orderdetail.dart';
 final _formKey = GlobalKey<FormState>();
 class Payment extends StatelessWidget {
   final double totalAmount;
@@ -89,20 +90,31 @@ class Payment extends StatelessWidget {
   }
 }
 class PaymentOptionsPage extends StatelessWidget {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final List<String> _districts = [
+    'Select District',
+    'Ernakulam',
+    'Thrissur',
+    'Kollam',
+    'Kasargod',
+    'Alapuzha'
+    // Add more districts as needed
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pay via Card'),
         backgroundColor: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4),
-        elevation: 0, // Removed elevation from app bar
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white, // Set background color to white
+          color: Colors.white,
           padding: EdgeInsets.all(20),
           child: Form(
-            key: _formKey, // Assign the form key
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -123,12 +135,12 @@ class PaymentOptionsPage extends StatelessWidget {
                             labelText: 'Card Number',
                           ),
                           keyboardType: TextInputType.number,
-                          style: TextStyle(color: Colors.black), // Set text color to black
+                          style: TextStyle(color: Colors.black),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter card number';
-                            } else if (int.tryParse(value) == null) {
-                              return 'Please enter a valid card number';
+                            } else if (value.length != 16 || int.tryParse(value) == null) {
+                              return 'Please enter a valid 16 digit card number';
                             }
                             return null;
                           },
@@ -138,7 +150,7 @@ class PaymentOptionsPage extends StatelessWidget {
                           decoration: InputDecoration(
                             labelText: 'Name on Card',
                           ),
-                          style: TextStyle(color: Colors.black), // Set text color to black
+                          style: TextStyle(color: Colors.black),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter name on card';
@@ -157,10 +169,28 @@ class PaymentOptionsPage extends StatelessWidget {
                                   labelText: 'Expiry Date (MM/YY)',
                                 ),
                                 keyboardType: TextInputType.number,
-                                style: TextStyle(color: Colors.black), // Set text color to black
+                                style: TextStyle(color: Colors.black),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter expiry date';
+                                  } else if (!RegExp(r'^(0[1-9]|1[0-2])\/\d{2}$').hasMatch(value)) {
+                                    return 'should be in MM/YY format';
+                                  } else {
+                                    var split = value.split('/');
+                                    var month = int.tryParse(split[0]);
+                                    var year = int.tryParse('20${split[1]}');
+
+                                    if (month == null || year == null) {
+                                      return 'Please enter a valid expiry date';
+                                    }
+
+                                    var now = DateTime.now();
+                                    var currentYear = now.year % 100;
+                                    var currentMonth = now.month;
+
+                                    if (year < currentYear || (year == currentYear && month < currentMonth)) {
+                                      return 'Expiry date should be in the future';
+                                    }
                                   }
                                   return null;
                                 },
@@ -173,13 +203,13 @@ class PaymentOptionsPage extends StatelessWidget {
                                   labelText: 'CVV',
                                 ),
                                 keyboardType: TextInputType.number,
-                                style: TextStyle(color: Colors.black), // Set text color to black
-                                obscureText: true, // Obscure CVV number
+                                style: TextStyle(color: Colors.black),
+                                obscureText: true,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter CVV';
-                                  } else if (int.tryParse(value) == null) {
-                                    return 'CVV should contain only numbers';
+                                  } else if (value.length != 3 || int.tryParse(value) == null) {
+                                    return 'CVV should be 3 digits';
                                   }
                                   return null;
                                 },
@@ -203,45 +233,30 @@ class PaymentOptionsPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Country',
-                        ),
-                        style: TextStyle(color: Colors.black), // Set text color to black
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter country';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'State',
-                        ),
-                        style: TextStyle(color: Colors.black), // Set text color to black
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter state';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: 'District',
+                  ),
+                  items: _districts.map((String district) {
+                    return DropdownMenuItem<String>(
+                      value: district,
+                      child: Text(district),
+                    );
+                  }).toList(),
+                  onChanged: (value) {},
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value == 'Select District') {
+                      return 'Please select district';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Billing Address',
                   ),
-                  style: TextStyle(color: Colors.black), // Set text color to black
+                  style: TextStyle(color: Colors.black),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter billing address';
@@ -257,7 +272,7 @@ class PaymentOptionsPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'City',
                         ),
-                        style: TextStyle(color: Colors.black), // Set text color to black
+                        style: TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter city';
@@ -273,11 +288,11 @@ class PaymentOptionsPage extends StatelessWidget {
                           labelText: 'Pincode',
                         ),
                         keyboardType: TextInputType.number,
-                        style: TextStyle(color: Colors.black), // Set text color to black
+                        style: TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter pincode';
-                          } else if (value.length != 6) {
+                          } else if (value.length != 6 || int.tryParse(value) == null) {
                             return 'Please enter a valid pincode';
                           }
                           return null;
@@ -289,9 +304,7 @@ class PaymentOptionsPage extends StatelessWidget {
                 SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {
-                    // Check if the form is valid
                     if (_formKey.currentState!.validate()) {
-                      // If the form is valid, navigate to payment success page
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => PaymentSuccess()),
@@ -299,11 +312,11 @@ class PaymentOptionsPage extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4), // Set button color to pink
-                    padding: EdgeInsets.symmetric(vertical: 16), // Increase button padding
+                    primary: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4),
+                    padding: EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: Container(
-                    width: double.infinity, // Make button full width
+                    width: double.infinity,
                     alignment: Alignment.center,
                     child: Text(
                       'Pay',
@@ -385,6 +398,30 @@ class PaymentSuccess extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                ),
+                SizedBox(height: 30), // Add spacing between content and button
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookingDetailScreen()), // Navigate to HomePage
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue, // Button color
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    'My Trips',
+                    style: TextStyle(
+                      color: Colors.white, // Text color
+                      fontWeight: FontWeight.bold, // Text weight
+                      fontSize: 18, // Text size
+                    ),
                   ),
                 ),
               ],
