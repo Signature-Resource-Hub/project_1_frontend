@@ -220,21 +220,59 @@ class _PickupDropPointsPageState extends State<PickupDropPointsPage> {
           ),
         ),
       ),
+      // bottomNavigationBar: BottomAppBar(
+      //   child: Padding(
+      //     padding: const EdgeInsets.all(16.0),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //       children: [
+      //         Text('Cost: Rs. $totalCost'), // Display total cost in "Rs." format
+      //         ElevatedButton(
+      //           onPressed: isNextButtonEnabled ? () => navigateToNextPage(context) : null,
+      //           child: Text('Next', style: TextStyle(color: Colors.white)),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Cost: Rs. $totalCost'), // Display total cost in "Rs." format
-              ElevatedButton(
-                onPressed: isNextButtonEnabled ? () => navigateToNextPage(context) : null,
-                child: Text('Next', style: TextStyle(color: Colors.white)),
-              ),
-            ],
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Adjust padding as needed
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text(
+            'Cost: Rs. $totalCost',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
-      ),
+        SizedBox(width: 16), // Add some space between text and button
+        Expanded(
+          flex: 1,
+          child: SizedBox(
+            height: 48, // Adjust height as needed
+            child: ElevatedButton(
+              onPressed: isNextButtonEnabled ? () => navigateToNextPage(context) : null,
+              style: ElevatedButton.styleFrom(
+                primary: isNextButtonEnabled ? Colors.blue : Colors.grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: Text(
+                'Next',
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
     );
   }
 
