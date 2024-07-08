@@ -44,7 +44,7 @@ class HotelDetailsPage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => HotelBookingPage(hotelid:hotel["_id"],hotelName: hotel["hotelname"], costPerNight: hotel["cost"],checkInTime: hotel["checkInTime"],
-                  checkOutTime: hotel["checkOutTime"],rating: hotel["rating"],location: hotel["location"],),
+                  checkOutTime: hotel["checkOutTime"],rating: hotel["rating"],location: hotel["location"],acNonAc:hotel["acNonAc"]),
             ),
           );
         },

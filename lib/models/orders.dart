@@ -69,6 +69,8 @@ class Display {
     String useremail;
     String userphone;
     DateTime bookingDate;
+    String hotelname;
+    String acNonAc;
     
     
    
@@ -84,8 +86,8 @@ class Display {
         required this.useremail,
         required this.userphone,
         required this.bookingDate,
-        
-       
+         required this.hotelname,
+        required this.acNonAc,
         required this.v,
     });
 
@@ -99,7 +101,8 @@ class Display {
         useremail: json["useremail"],
         userphone: json["userphone"],
         bookingDate: DateTime.parse(json["booking_date"]),
-       
+         hotelname: json["hotelname"],
+         acNonAc: json["acNonAc"],
        
         v: json["__v"],
     );
@@ -114,7 +117,8 @@ class Display {
         "useremail": useremail,
         "userphone": userphone,
         "booking_date": bookingDate.toIso8601String(),
-        
+         "hotelname": hotelname,
+         "acNonAc":acNonAc,
        
         "__v": v,
     };

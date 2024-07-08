@@ -22,6 +22,7 @@ class RoomSelectionPage extends StatefulWidget {
   final DateTime checkInDate;
   final DateTime checkOutDate;
   final String hotelid;
+  final String acNonAc;
 
   RoomSelectionPage({
     required this.hotelid,
@@ -34,6 +35,7 @@ class RoomSelectionPage extends StatefulWidget {
     required this.costPerNight,
     required this.checkInDate,
     required this.checkOutDate,
+    required this.acNonAc,
   });
 
   @override
@@ -80,13 +82,14 @@ class _RoomSelectionPageState extends State<RoomSelectionPage> {
     String hotelName,
     String startDate,
     String endDate,
+    String acNonAc
   ) async {
     String userid = await _storage.read(key: 'userid') ?? '';
     String name = await _storage.read(key: 'username') ?? '';
     String email = await _storage.read(key: 'useremail') ?? '';
     String phone = await _storage.read(key: 'phone') ?? '';
     try {
-      final response = await BookHotelService().bookHotel(userid, widget.hotelid, bookfor, price, username, useremail, userphone);
+      final response = await BookHotelService().bookHotel(userid, widget.hotelid, bookfor, price, username, useremail, userphone, hotelName,acNonAc);
       if (response.statusCode == 200) {
         if (response.data is Map<String, dynamic> && response.data.containsKey('msg')) {
           print(response.data['msg']);
@@ -146,7 +149,7 @@ class _RoomSelectionPageState extends State<RoomSelectionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Review Bookingsz'),
+        title: Text('Review Bookings'),
         backgroundColor: Color.fromARGB(223, 238, 240, 239),
       ),
       body: SingleChildScrollView(
@@ -167,15 +170,15 @@ class _RoomSelectionPageState extends State<RoomSelectionPage> {
                           widget.hotelName,
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
-                        Row(
-                          children: List.generate(
-                            5,
-                            (index) => Icon(
-                              index < widget.rating ? Icons.star : Icons.star_border,
-                              color: index < widget.rating ? Colors.black : Colors.grey,
-                            ),
-                          ),
-                        ),
+                        // Row(
+                        //   children: List.generate(
+                        //     5,
+                        //     (index) => Icon(
+                        //       index < widget.rating ? Icons.star : Icons.star_border,
+                        //       color: index < widget.rating ? Colors.black : Colors.grey,
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(height: 10),
                         Row(
                           children: [
@@ -500,6 +503,7 @@ class _RoomSelectionPageState extends State<RoomSelectionPage> {
                       hotelName,
                       startDate,
                       endDate,
+                      widget.acNonAc,
                     );
                   }
                 },

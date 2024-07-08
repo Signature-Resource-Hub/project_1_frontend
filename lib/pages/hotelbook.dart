@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_1_frontend/services/reviewsservice.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:project_1_frontend/pages/roomselection.dart';
+import 'package:intl/intl.dart';
 
 class HotelBookingPage extends StatefulWidget {
   // Pass hotel details as constructor parameters
@@ -11,6 +13,7 @@ class HotelBookingPage extends StatefulWidget {
   final int rating;
   final String location;
   final String hotelid;
+  final String acNonAc;
 
   const HotelBookingPage({
     Key? key,
@@ -21,6 +24,7 @@ class HotelBookingPage extends StatefulWidget {
     required this.checkOutTime,
     required this.rating,
     required this.location,
+    required this.acNonAc,
   }) : super(key: key);
 
   @override
@@ -37,6 +41,10 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
   late TextEditingController _phoneController;
   bool _showStartDatePicker = false;
   bool _showEndDatePicker = false;
+  bool isLoading = false;
+  double averageRating = 0.0;
+  double rating = 0;
+  final Reviewservice reviewservice = Reviewservice();
 
   @override
   void dispose() {
@@ -57,6 +65,7 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
     _nameController = TextEditingController();
     _emailController = TextEditingController();
     _phoneController = TextEditingController();
+    calculateAverageRating();
   }
 
   void _calculateCost() {
@@ -67,20 +76,85 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
     _totalCost = _numberOfNights * widget.costPerNight.toDouble();
   }
 
-  List<Widget> _buildRatingStars(int rating) {
-    List<Widget> stars = [];
-    for (int i = 0; i < 5; i++) {
-      IconData iconData = i < rating ? Icons.star : Icons.star_border;
-      Color color = i < rating ? Colors.amber : Colors.grey;
-      stars.add(
-        Icon(
-          iconData,
-          color: color,
-        ),
-      );
+
+  Future<void> calculateAverageRating() async {
+setState(() {
+      isLoading = true;
+    });
+    String hotelId = widget.hotelid;
+    if (hotelId.isNotEmpty) {
+    final reviews = await reviewservice.getReviewsByHotel(hotelId);
+    if (reviews.isNotEmpty) {
+      double totalRating = reviews.fold(0.0, (sum, review) => sum + double.parse(review.rating));
+      averageRating = totalRating / reviews.length;
+    } else {
+      averageRating = 0.0;
     }
-    return stars;
+    print("avaerage:");
+    print(averageRating);
+setState(() {
+        isLoading = false;
+      });
   }
+  }
+
+  // List<Widget> _buildRatingStars(double rating) {
+  //   List<Widget> stars = [];
+  //   for (int i = 0; i < 5; i++) {
+  //     IconData iconData = i < rating ? Icons.star : Icons.star_border;
+  //     Color color = i < rating ? Colors.amber : Colors.grey;
+  //     stars.add(
+  //       Icon(
+  //         iconData,
+  //         color: color,
+  //       ),
+  //     );
+  //   }
+  //   print(rating);
+  //   return stars;
+  // }
+
+  List<Widget> _buildRatingStars(double rating) {
+  List<Widget> stars = [];
+  int fullStars = rating.floor(); // Number of full stars
+  double fractionalPart = rating - fullStars; // Fractional part of the rating
+
+  // Add full stars
+  for (int i = 0; i < fullStars; i++) {
+    stars.add(
+      Icon(
+        Icons.star,
+        color: Colors.amber,
+      ),
+    );
+  }
+
+  // Add half star if fractional part is greater than 0 and less than 1
+  if (fractionalPart > 0 && fractionalPart < 1) {
+    stars.add(
+      Icon(
+        Icons.star_half,
+        color: Colors.amber,
+      ),
+    );
+  }
+
+  // Add empty stars to make total 5 stars
+  while (stars.length < 5) {
+    stars.add(
+      Icon(
+        Icons.star_border,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+  print(rating); // For debugging purposes
+  return stars;
+}
+
+
+
 
   void _navigateToRoomSelectionPage() {
     String userName = _nameController.text;
@@ -104,6 +178,7 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
           checkInDate: _selectedStartDate, // Pass the selected start date
           checkOutDate: _selectedEndDate,
           costPerNight: widget.costPerNight,
+          acNonAc:widget.acNonAc,
           
           // userName: userName,
           // userEmail: userEmail,
@@ -127,6 +202,7 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
 
   @override
   Widget build(BuildContext context) {
+    DateFormat dateFormat = DateFormat('dd MMM yyyy');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(223, 238, 240, 239),
@@ -147,7 +223,7 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
                   SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildRatingStars(widget.rating),
+                    children: _buildRatingStars(averageRating),
                   ),
                 ],
               ),
@@ -231,13 +307,19 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
                 },
               ),
             SizedBox(height: 20),
-            Text(
-              'Selected Dates : $_numberOfNights Nights',
+            
+            Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+    Text(
+              'Selected Dates : ',
+              
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
+                
                 shadows: <Shadow>[
                   Shadow(
                     offset: Offset(2, 2),
@@ -249,6 +331,22 @@ class _HotelBookingPageState extends State<HotelBookingPage> {
                 decorationThickness: 2,
               ),
             ),
+    Text(
+      DateFormat('dd MMM yyyy').format(_selectedStartDate),
+      style: TextStyle(fontSize: 16, color: Colors.black),
+    ),
+    Text(
+      '-',
+      style: TextStyle(fontSize: 16, color: Colors.black),
+    ),
+    Text(
+      DateFormat('dd MMM yyyy').format(_selectedEndDate),
+      style: TextStyle(fontSize: 16, color: Colors.black),
+    ),
+  ],
+),
+
+            
             SizedBox(height: 20),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16),

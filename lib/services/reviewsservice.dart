@@ -29,7 +29,6 @@ class Reviewservice {
           'hotel_id': hotelId,
           'rating': rating,
           'review': review,
-          
         },
       );
       return response;
