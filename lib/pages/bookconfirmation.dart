@@ -187,8 +187,8 @@ class BookingConfirmationPage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF64B5F6),
-              Color(0xFF42A5F5),
+              Color.fromARGB(255, 118, 187, 245),
+              Color.fromARGB(255, 85, 167, 233),
             ],
           ),
         ),
@@ -241,9 +241,9 @@ class BookingConfirmationPage extends StatelessWidget {
                               MaterialPageRoute(builder: (context) => PaymentPage(totalAmount: totalAmount)),
                             );
                           },
-                          child: Text('PROCEED | Rs: $totalAmount', style: TextStyle(fontSize: 20)),
+                          child: Text('PROCEED | Rs: $totalAmount', style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.green,
+                            primary: const Color.fromARGB(255, 124, 231, 128),
                             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
@@ -254,9 +254,9 @@ class BookingConfirmationPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text('Back', style: TextStyle(fontSize: 20)),
+                          child: Text('Back', style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.grey[700],
+                            primary: Color.fromARGB(255, 187, 185, 185),
                             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
