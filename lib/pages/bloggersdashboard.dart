@@ -1,18 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:project_1_frontend/pages/blog_view_page.dart';
-// import 'package:project_1_frontend/pages/blogdetails.dart';
-// import 'package:project_1_frontend/pages/bloglocation.dart';
+import 'package:project_1_frontend/pages/addblogpage.dart';
+import 'package:project_1_frontend/pages/addblogpage.dart';
+import 'package:project_1_frontend/pages/blog_view_pages.dart';
+import 'package:project_1_frontend/pages/blogdetail.dart';
+//import 'package:project_1_frontend/pages/blogdetails.dart';
+import 'package:project_1_frontend/pages/bloglistpages.dart';
+//import 'package:project_1_frontend/pages/bloglocation.dart';
+//import 'package:project_1_frontend/pages/blogsbyuserid.dart';
 import 'package:project_1_frontend/pages/hotelList.dart';
 import 'package:project_1_frontend/pages/hotelbyloc.dart';
 import 'package:project_1_frontend/pages/hotels.dart';
-// import 'package:project_1_frontend/pages/orderdetails.dart';
+ //import 'package:project_1_frontend/pages/orderdetails.dart';
 import 'package:project_1_frontend/pages/profile.dart';
 import 'package:project_1_frontend/registration/AddBusPage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class bloggersdashboard extends StatelessWidget {
-  const bloggersdashboard({Key? key});
+class bloggerdashboard extends StatelessWidget {
+  const bloggerdashboard({Key? key});
   final storage = const FlutterSecureStorage();
   
   @override
@@ -106,10 +111,10 @@ class bloggersdashboard extends StatelessWidget {
                     buildMenuItem(
                       context: context,
                       icon: Icons.directions_bus,
-                      text: 'Bus',
+                      text: 'Add Blogs',
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddBusPage(),
+                          builder: (context) => AddBlogPage(),
                         ));
                       },
                       color: Color.fromARGB(255, 238, 156, 150), // Specify color for this container
@@ -125,37 +130,37 @@ class bloggersdashboard extends StatelessWidget {
                     //   },
                     //   color: Color.fromARGB(255, 165, 200, 230), // Specify color for this container
                     // ),
-                    buildMenuItem(
-                      context: context,
-                      icon: Icons.search,
-                      text: 'Explore',
-                      onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (context) => HotelbylocPage(),
-                        // ));
-                      },
-                      color: Color.fromARGB(255, 158, 224, 159), // Specify color for this container
-                    ),
+                    // buildMenuItem(
+                    //   context: context,
+                    //   icon: Icons.search,
+                    //   text: 'Explore',
+                    //   onTap: () {
+                    //     Navigator.of(context).push(MaterialPageRoute(
+                    //       builder: (context) => HotelbylocPage(),
+                    //     ));
+                    //   },
+                    //   color: Color.fromARGB(255, 158, 224, 159), // Specify color for this container
+                    // ),
                     
                     buildMenuItem(
                       context: context,
                       icon: Icons.article,
-                      text: '\t\t\t\tTravel             \t\t\t\tBlogs',
+                      text: 'Blogs',
                       onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (context) => BlogPage(),
-                        // ));
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BlogPage(),
+                        ));
                       },
                       color: Color.fromARGB(255, 143, 134, 54), // Specify color for this container
                     ),
                     buildMenuItem(
                       context: context,
                       icon: Icons.people,
-                      text: 'My Trips',
+                      text: 'My Blogs',
                       onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (context) => BookingDetailsScreen(),
-                        // ));
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BlogListPage(),
+                        ));
                       },
                       color: Color.fromARGB(255, 175, 114, 185), // Specify color for this container
                     ),
