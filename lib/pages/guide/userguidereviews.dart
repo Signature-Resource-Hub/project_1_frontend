@@ -93,7 +93,7 @@ class _userguidereviewsState extends State<userguidereviews> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Rate this bus',
+                'Rate this Guide',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),

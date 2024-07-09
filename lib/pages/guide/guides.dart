@@ -165,19 +165,26 @@ backgroundColor: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4),          ti
                       ),
                       child: ListTile(
                         contentPadding: EdgeInsets.all(16),
-                        title: Text(
-                          "Guide ID: ${guide.userid.id}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold, // Make guide ID bold
-                            fontFamily: 'Montserrat', // Custom font
-                            color: Colors.blueAccent, // Text color
-                          ),
-                        ),
+                        // title: Text(
+                        //   "Guide ID: ${guide.userid.id}",
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold, // Make guide ID bold
+                        //     fontFamily: 'Montserrat', // Custom font
+                        //     color: Colors.blueAccent, // Text color
+                        //   ),
+                        // ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 8),
-                            Text("Guide Name: ${guide.userid.username}"),
+                            Text("Guide Name: ${guide.userid.username}",
+                            style: TextStyle(
+                            fontWeight: FontWeight.bold, // Make guide ID bold
+                            fontFamily: 'Montserrat', // Custom font
+                            color: Colors.blueAccent, // Text color
+                          ),
+                            
+                            ),
                             SizedBox(width: 4),
 
                             Text("Location: ${guide.location}"),
@@ -194,7 +201,7 @@ backgroundColor: Color.fromARGB(255, 62, 238, 241).withOpacity(0.4),          ti
                               ],
                             ),
                             SizedBox(height: 4),
-                            Text("Timestamp: ${guide.timestamp}"),
+                            // Text("Timestamp: ${guide.timestamp}"),
                             Text("Contents: ${guide.contents}"),
                           ],
                         ),
