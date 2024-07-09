@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_1_frontend/pages/bloggerdashboard.dart';
+import 'package:project_1_frontend/pages/bloggersdashboard.dart';
 import 'package:project_1_frontend/pages/busbylocation.dart';
 import 'package:project_1_frontend/pages/dash.dart';
 import 'package:project_1_frontend/pages/guidedashboard.dart';
