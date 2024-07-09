@@ -35,8 +35,10 @@ class _AddBlogPageState extends State<AddBlogPage> {
     final String content = _contentController.text;
     final String location = _locationController.text;
     Map<String, String> allValues = await storage.readAll();
-    String normalizedSource = base64Url.normalize(allValues["token"]!.split(".")[1]);
-    String userId = json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
+    String normalizedSource =
+        base64Url.normalize(allValues["token"]!.split(".")[1]);
+    String userId =
+        json.decode(utf8.decode(base64Url.decode(normalizedSource)))["id"];
 
     try {
       final response = widget.blog == null
@@ -52,12 +54,19 @@ class _AddBlogPageState extends State<AddBlogPage> {
             );
 
       if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(widget.blog == null ? 'Blog added successfully' : 'Blog updated successfully')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(widget.blog == null
+                ? 'Blog added successfully'
+                : 'Blog updated successfully')));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(widget.blog == null ? 'Failed to add blog' : 'Failed to update blog')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(widget.blog == null
+                ? 'Failed to add blog'
+                : 'Failed to update blog')));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -148,36 +157,14 @@ class _AddBlogPageState extends State<AddBlogPage> {
                       primary: Colors.white,
                       onPrimary: Colors.teal,
                       padding: EdgeInsets.symmetric(vertical: 15),
-                      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      textStyle:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
-                  if (widget.blog == null) // Only show edit mode option if not editing
-                    TextButton(
-  onPressed: () {
-    setState(() {
-      _isEditMode = !_isEditMode; // Toggle edit mode
-    });
-  },
-  child: Container(
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-    decoration: BoxDecoration(
-      color: _isEditMode ? Colors.redAccent : Colors.teal, // Change color based on edit mode
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Text(
-      _isEditMode ? 'Cancel Edit' : 'Edit Blog',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ),
-),
-
+                  // Only show edit mode option if not editing
                 ],
               ),
             ),
